@@ -1,0 +1,3 @@
+# Task Manager Application
+
+Built with modern technologies: express, mongoDB, mongoose and more...
