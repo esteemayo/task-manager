@@ -17,6 +17,8 @@ const globalErrorHandler = require('./controllers/errorController');
 const app = express();
 
 // global middlewares
+app.set('trust proxy', 1);
+
 // implement CORS
 app.use(cors());
 // access-control-allow-origin
