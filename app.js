@@ -1,12 +1,17 @@
 const hpp = require('hpp');
 const cors = require('cors');
+const YAML = require('yamljs');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const express = require('express');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
+const swaggerUI = require('swagger-ui-express');
+const { StatusCodes } = require('http-status-codes');
 const mongoSanitize = require('express-mongo-sanitize');
+
+const swaggerDocument = YAML.load('./swagger.yaml');
 
 // routes
 const tasks = require('./routes/tasks');
@@ -62,6 +67,13 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+app.get('/', (req, res) => {
+    res.status(StatusCodes.OK).send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
+});
+
+// api route
 app.use('/api/v1/tasks', tasks);
 
 app.all('*', (req, res, next) => {

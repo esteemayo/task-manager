@@ -1,0 +1,147 @@
+openapi: 3.0.0
+info:
+  title: Task-Manager
+  contact:
+    name: Emmanuel Adebayo
+    email: eadebayo15@gmail.com
+  version: '1.0'
+servers:
+  - url: https://my-api-task-manager.herokuapp.com/api/v1
+    variables: {}
+paths:
+  /tasks:
+    get:
+      tags:
+        - Tasks
+      summary: Get All Tasks
+      operationId: GetAllTasks
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - Tasks
+      summary: Create New Task
+      operationId: CreateNewTask
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNewTaskRequest'
+            example:
+              name: Watch football
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /tasks/details/{slug}:
+    parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+        description: The Task SLUG
+    get:
+      tags:
+        - Tasks
+      summary: Get Task By Slug
+      operationId: GetTaskBySlug
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+
+  /tasks/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Task ID
+    get:
+      tags:
+        - Tasks
+      summary: Get Task By Id
+      operationId: GetTaskById
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+
+    patch:
+      tags:
+        - Tasks
+      summary: Update Task
+      operationId: UpdateTask
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+            example:
+              name: Testing task update
+              completed: true
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+
+    delete:
+      tags:
+        - Tasks
+      summary: Delete Task
+      operationId: DeleteTask
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    CreateNewTaskRequest:
+      title: CreateNewTaskRequest
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: Watch football
+    UpdateTaskRequest:
+      title: UpdateTaskRequest
+      required:
+        - name
+        - completed
+      type: object
+      properties:
+        name:
+          type: string
+        completed:
+          type: boolean
+      example:
+        name: Testing task update
+        completed: true
+security:
+  - {}
+tags:
+  - name: Tasks
+    description: ''
